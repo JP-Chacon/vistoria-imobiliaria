@@ -45,9 +45,10 @@ describe('inspectionService', () => {
       id: 'inspection-1',
       ...payload,
       status: 'pending',
+      completedAt: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-    });
+    } as never);
 
     const inspection = await inspectionService.create(payload);
 

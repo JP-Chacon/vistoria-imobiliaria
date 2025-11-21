@@ -15,10 +15,10 @@ export const inspectionUploadsRoot = path.resolve(uploadsRoot, 'inspections');
 export const inspectionAttachmentsUpload = multer({
   storage: multer.diskStorage({
     destination: (req, _file, cb) => {
-      const inspectionId = req.params.id;
+      const inspectionId = req.params?.id;
 
       if (!inspectionId) {
-        return cb(new Error('ID da vistoria não informado.'));
+        return cb(new Error('ID da vistoria não informado.'), '');
       }
 
       const folder = path.resolve(inspectionUploadsRoot, inspectionId);

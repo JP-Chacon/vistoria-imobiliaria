@@ -29,7 +29,14 @@ describe('propertyService', () => {
     const payload = {
       ownerName: 'Maria',
       address: 'Rua 1',
-      type: 'house',
+      type: 'house' as const,
+      cep: '12345-678',
+      street: 'Rua 1',
+      number: '123',
+      district: 'Centro',
+      city: 'São Paulo',
+      state: 'SP',
+      observations: null,
     };
 
     vi.mocked(propertyRepository.create).mockResolvedValue({

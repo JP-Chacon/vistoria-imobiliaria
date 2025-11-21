@@ -16,11 +16,10 @@ const toPublicUser = (user: User): PublicUser => ({
   updatedAt: user.updatedAt,
 });
 
-const generateToken = (userId: string) => {
-  return jwt.sign({}, env.jwtSecret, {
-    subject: userId,
-    expiresIn: env.jwtExpiresIn,
-  });
+const generateToken = (userId: string): string => {
+  return jwt.sign({ sub: userId }, env.jwtSecret, {
+    expiresIn: env.jwtExpiresIn as string,
+  } as jwt.SignOptions);
 };
 
 const register = async (payload: RegisterDTO): Promise<AuthResponse> => {

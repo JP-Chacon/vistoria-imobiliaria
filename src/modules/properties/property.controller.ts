@@ -1,9 +1,11 @@
 import { type RequestHandler } from 'express';
 
 import { propertyTypeEnum } from '../../database/schema';
+
 import { AppError } from '../../errors/app-error';
 
 import { propertyService } from './property.service';
+import type { PropertyType, UpdatePropertyDTO } from './property.types';
 
 type CreatePropertyBody = {
   ownerName?: string;
@@ -28,15 +30,15 @@ const ensureNonEmptyString = (value: unknown, field: string): string => {
   return value.trim();
 };
 
-const ensureValidType = (value: unknown): string => {
+const ensureValidType = (value: unknown): PropertyType => {
   const type = ensureNonEmptyString(value, 'type');
   const allowedTypes = propertyTypeEnum.enumValues;
 
-  if (!allowedTypes.includes(type as (typeof allowedTypes)[number])) {
+  if (!allowedTypes.includes(type as PropertyType)) {
     throw new AppError(`Tipo de imóvel inválido. Valores permitidos: ${allowedTypes.join(', ')}.`);
   }
 
-  return type;
+  return type as PropertyType;
 };
 
 const list: RequestHandler = async (_req, res) => {
@@ -61,7 +63,7 @@ const create: RequestHandler = async (req, res) => {
   const district = ensureNonEmptyString(body.district, 'district');
   const city = ensureNonEmptyString(body.city, 'city');
   const state = ensureNonEmptyString(body.state, 'state');
-  const observations = body.observations?.trim() || null;
+  const observations = body.observations?.trim() || undefined;
 
   const data = await propertyService.create({
     ownerName,
@@ -82,7 +84,7 @@ const update: RequestHandler = async (req, res) => {
   const { id } = req.params as { id: string };
   const body = req.body as UpdatePropertyBody;
 
-  const payload: UpdatePropertyBody = {};
+  const payload: Partial<UpdatePropertyDTO> = {};
 
   if (body.ownerName !== undefined) {
     payload.ownerName = ensureNonEmptyString(body.ownerName, 'ownerName');
@@ -121,14 +123,14 @@ const update: RequestHandler = async (req, res) => {
   }
 
   if (body.observations !== undefined) {
-    payload.observations = body.observations.trim() || null;
+    payload.observations = body.observations.trim() || undefined;
   }
 
   if (Object.keys(payload).length === 0) {
     throw new AppError('Informe ao menos um campo para atualizar.');
   }
 
-  const data = await propertyService.update(id, payload);
+  const data = await propertyService.update(id, payload as UpdatePropertyDTO);
   res.json({ data });
 };
 

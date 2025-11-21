@@ -55,17 +55,29 @@ export const PropertyForm = ({
     watch,
   } = useForm<PropertyFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues ?? {
-      ownerName: '',
-      type: 'house',
-      cep: '',
-      street: '',
-      number: '',
-      district: '',
-      city: '',
-      state: '',
-      observations: '',
-    },
+    defaultValues: defaultValues
+      ? {
+          ownerName: defaultValues.ownerName,
+          type: defaultValues.type,
+          cep: defaultValues.cep,
+          street: defaultValues.street,
+          number: defaultValues.number,
+          district: defaultValues.district,
+          city: defaultValues.city,
+          state: defaultValues.state,
+          observations: defaultValues.observations ?? undefined,
+        }
+      : {
+          ownerName: '',
+          type: 'house',
+          cep: '',
+          street: '',
+          number: '',
+          district: '',
+          city: '',
+          state: '',
+          observations: '',
+        },
   })
 
   const cepValue = watch('cep')
@@ -113,7 +125,7 @@ export const PropertyForm = ({
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-5" onSubmit={handleSubmit(onSubmit as (values: PropertyFormValues) => void | Promise<void>)}>
       <div>
         <Label htmlFor="ownerName">Proprietário</Label>
         <Input id="ownerName" placeholder="Nome completo" {...register('ownerName')} />

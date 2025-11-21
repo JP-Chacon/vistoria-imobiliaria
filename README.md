@@ -145,8 +145,7 @@ frontend/src
 ├── layouts/          # DashboardLayout com Sidebar/Header
 ├── pages/            # Login, Dashboard, Imóveis, Vistorias, Perfil
 ├── routes/           # AppRoutes + PrivateRoute
-├── utils/            # Formatadores, storage, constantes
-└── styles/           # Base Tailwind
+└── utils/            # Formatadores, storage, constantes
 ```
 
 Funcionalidades principais: login, dashboard com métricas, CRUD de imóveis, criação/listagem/detalhes de vistorias, upload/remoção de anexos com preview, perfil do usuário e controle de tema claro/escuro.

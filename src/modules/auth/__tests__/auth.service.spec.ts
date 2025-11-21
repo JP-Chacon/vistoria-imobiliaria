@@ -16,7 +16,7 @@ vi.mock('../../users/user.repository', () => ({
 describe('authService', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    vi.spyOn(jwt, 'sign').mockReturnValue('signed-token');
+    vi.spyOn(jwt, 'sign').mockImplementation(() => 'signed-token');
   });
 
   it('deve impedir cadastro com e-mail duplicado', async () => {

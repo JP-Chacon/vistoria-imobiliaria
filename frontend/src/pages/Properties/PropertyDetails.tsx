@@ -17,15 +17,6 @@ const formatCep = (cep: string) => {
   return cep
 }
 
-const getTypeLabel = (type: string) => {
-  const labels: Record<string, string> = {
-    house: 'Casa',
-    apartment: 'Apartamento',
-    commercial: 'Comercial',
-  }
-  return labels[type] || type
-}
-
 export const PropertyDetailsPage = () => {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
