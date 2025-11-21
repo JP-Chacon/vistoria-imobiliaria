@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.DS_Store
+.env
+.env.local
+coverage/
+*.log
+tmp/
+npm-debug.log*
+yarn-error.log*
+
+uploads/*
+!uploads/.gitkeep
+

@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1763728961628,
+      "tag": "0000_solid_grim_reaper",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1763744229301,
+      "tag": "0001_breezy_rictor",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1763745000000,
+      "tag": "0002_add_properties_columns_safe",
+      "breakpoints": true
+    }
+  ]
+}
